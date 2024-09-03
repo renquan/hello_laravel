@@ -20,3 +20,4 @@ Route::get('/about', [StaticPagesController::class,'about'])->name('about');
 
 //用户登录注册
 Route::get('/signup',[UsersController::class,'create'])->name('signup');
+Route::resource('users', UsersController::class);
