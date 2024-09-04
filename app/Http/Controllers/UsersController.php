@@ -19,10 +19,11 @@ class UsersController extends Controller
         return view('users.create');
     }
 
-    //用户信息展示
+    //用户信息展示,并展示用户的微博
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $statuses = $user->statuses()->orderBy('created_at','desc')->paginate(10);
+        return view('users.show', compact('user','statuses'));
     }
 
     //验证并保存用户

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
         //分页样式
         Paginator::useBootstrapFive();
         Paginator::useBootstrapFour();
+        //中文时间
+        //Carbon::setLocale('zh');
 
 
     }
