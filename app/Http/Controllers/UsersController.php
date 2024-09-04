@@ -57,6 +57,12 @@ class UsersController extends Controller
             $data['password'] = bcrypt($request->password);
         }
 
+        if($request->user()->cannot('update',$user)){
+            session()->flash('danger','非本人账号,不允许修改');
+            $fallback = route('users.edit',Auth::user());
+            return redirect()->intended($fallback);
+        }
+
         $user->update($data);
 
         session()->flash('success','信息更改成功!');
