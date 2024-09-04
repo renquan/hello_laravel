@@ -12,7 +12,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li> <a class="dropdown-item" href="{{ route('users.show', Auth::user()) }}">个人信息</a></li>
-                <li><a class="dropdown-item" href="#">编辑资料</a></li>
+                <li><a class="dropdown-item" href="{{ route('users.edit', Auth::user()) }}">编辑资料</a></li>
                 <div class="dropdown-divider"></div>
                 <li><a class="dropdown-item" id="logout" href="#">
                         <form action="{{ route('logout') }}" method="POST">
