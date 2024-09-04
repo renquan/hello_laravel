@@ -3,7 +3,7 @@
 
 <head>
     <title>@yield('title','weibo APP')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js','resources/sass/app.scss'])
+    @vite(['resources/css/app.css', 'resources/sass/app.scss'])
 </head>
 
 <body>
@@ -16,6 +16,8 @@
             @include('layouts._footer')
         </div>
     </div>
+
+    @vite(['resources/js/app.js'])
 </body>
 
 </html>
