@@ -22,7 +22,7 @@ Route::get('/about', [StaticPagesController::class,'about'])->name('about');
 //用户登录注册
 Route::get('/signup',[UsersController::class,'create'])->name('signup');
 Route::resource('users', UsersController::class)->middleware('auth')->except(['show', 'create', 'store']);
-Route::resource('users', UsersController::class)->only(['show', 'create', 'store']);
+Route::resource('users', UsersController::class)->only(['show', 'create', 'store','index']);
 
 Route::get('login',[SessionsController::class,'create'])->middleware('guest')->name('login');
 Route::post('login',[SessionsController::class,'store'])->middleware('guest')->name('login');

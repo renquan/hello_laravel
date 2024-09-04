@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+    public function index(){
+        $users = User::paginate(10);
+        return view('users.index',['users'=>$users]);
+    }
     //用户注册页面
     public function create()
     {
