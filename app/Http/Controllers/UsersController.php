@@ -76,5 +76,18 @@ class UsersController extends Controller
 
     }
 
+    //删除用户
+    public function destroy(User $user,Request $request) {
+        if($request->user()->cannot('delete',$user)){
+            session()->flash('info','没有权限删除!');
+
+        }else{
+            $user->delete();
+            session()->flash('success','用户删除成功!');
+        }
+
+
+        return redirect()->route('users.index');
+    }
 
 }
