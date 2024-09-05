@@ -30,6 +30,6 @@ Route::post('login',[SessionsController::class,'store'])->middleware('guest')->n
 Route::delete('logout',[SessionsController::class,'destroy'])->name('logout');
 
 //微博发布/删除
-Route::resource('statuses',StatusesController::class,['only'=>['store','destory']])->middleware('auth');
+Route::resource('statuses',StatusesController::class,['only'=>['store','destroy']])->middleware('auth');
 
 

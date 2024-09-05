@@ -24,5 +24,15 @@ class StatusesController extends Controller
     }
 
     //删除微博
-    public function destory() {}
+    public function destroy(Request $request,Status $status) {
+        if($request->user()->can('delete',$status)){
+            $status->delete();
+            session()->flash('success','微博删除成功!');
+        }else{
+            session()->flash('danger','没有权限删除该微博!');
+        }
+
+        return redirect()->back();
+
+    }
 }
