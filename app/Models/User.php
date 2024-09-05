@@ -51,46 +51,54 @@ class User extends Authenticatable
     }
 
     //关联微博表
-    public function statuses()  {
+    public function statuses()
+    {
         return $this->hasMany(Status::class);
-
     }
 
     //取出用户发布的微博
-    public function feed() {
-        return $this->statuses()->orderBy('created_at','desc');
-
+    public function feed()
+    {
+        $user_ids = $this->followings->pluck('id')->toArray();
+        array_push($user_ids, $this->id);
+        return Status::whereIn('user_id', $user_ids)
+            ->with('user')
+            ->orderBy('created_at', 'desc');
     }
 
     //一个用户有多个粉丝
-    public function followers() {
-        return $this->belongsToMany(User::class,'followers','user_id','follower_id');
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
     }
 
     //一个用户可以关注多个人
-    public function followings() {
-        return $this->belongsToMany(User::class,'followers','follower_id','user_id');
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
 
     //关注
-    public function follow($user_ids) {
-        if(! is_array($user_ids)){
+    public function follow($user_ids)
+    {
+        if (! is_array($user_ids)) {
             $user_ids = compact('user_ids');
         }
-        $this->followings()->sync($user_ids,false);
-
+        $this->followings()->sync($user_ids, false);
     }
 
     //取消关注
-    public function unfollow($user_ids){
-        if ( ! is_array($user_ids)) {
+    public function unfollow($user_ids)
+    {
+        if (! is_array($user_ids)) {
             $user_ids = compact('user_ids');
         }
         $this->followings()->detach($user_ids);
     }
 
     //是否关注
-    public function isFollowing($user_id){
+    public function isFollowing($user_id)
+    {
         return $this->followings->contains($user_id);
     }
 }

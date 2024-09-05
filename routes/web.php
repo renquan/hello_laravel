@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaticPagesController;
@@ -33,3 +34,8 @@ Route::delete('logout',[SessionsController::class,'destroy'])->name('logout');
 Route::resource('statuses',StatusesController::class,['only'=>['store','destroy']])->middleware('auth');
 
 
+//关注和粉丝页面
+Route::get('/users/{user}/followings',[UsersController::class,'followings'])->name('users.followings');
+Route::get('/users/{user}/followers',[UsersController::class,'followers'])->name('users.followers');
+Route::post('/users/followers/{user}',[FollowersController::class,'store'])->middleware('auth')->name('followers.store');
+Route::delete('users/followers/{user}',[FollowersController::class,'destroy'])->middleware('auth')->name('followers.destroy');
